@@ -1,4 +1,4 @@
-## Create new policy 
+## Create new policy module
 1. Generate new policies according to audit.log:
 ~~~
 sudo  ausearch -c 'ping' --raw | audit2allow -M my-ping
@@ -37,4 +37,27 @@ my-ping
 ~~~
 
 
-## Create new type
+## Create new policies for container
+1. Run container 
+
+2. Generate inspect info into json file:
+~~~
+# podman inspect d3dadf1d5ea7 > bash_container.json
+~~~
+
+3. Create policy module:
+~~~
+# udica -j bash_container.json bash_container
+
+Policy bash_container created!
+
+Please load these modules using: 
+# semodule -i bash_container.cil /usr/share/udica/templates/{base_container.cil,net_container.cil,home_container.cil}
+
+Restart the container with: "--security-opt label=type:bash_container.process" parameter
+~~~
+
+4. Load new policies:
+~~~
+# semodule -i bash_container.cil /usr/share/udica/templates/{base_container.cil,net_container.cil,home_container.cil}
+~~~
