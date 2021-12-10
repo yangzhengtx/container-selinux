@@ -1,10 +1,10 @@
 ## Create new policy 
-Generate new policies according to audit.log:
+1. Generate new policies according to audit.log:
 ~~~
 sudo  ausearch -c 'ping' --raw | audit2allow -M my-ping
 ~~~
 
-Check policies in my-ping.te:
+2. Check policies in my-ping.te:
 ~~~
 # cat my-ping.te 
 
@@ -23,7 +23,7 @@ allow container_t node_t:icmp_socket node_bind;
 allow spc_t node_t:icmp_socket node_bind;
 ~~~
 
-Load new policies into SELinux:
+3. Load new policies into SELinux:
 ~~~
 # semodule -i my-ping.pp 
 # semodule -l |grep ping
