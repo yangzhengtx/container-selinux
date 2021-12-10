@@ -1,4 +1,11 @@
 ## Create new policy module
+
+Problem:
+---
+type=AVC msg=audit(1637628548.166:957): avc:  denied  { node_bind } for  pid=77662 comm="ping" saddr=127.0.0.1 scontext=system_u:system_r:container_t:s0:c354,c867 tcontext=system_u:object_r:node_t:s0 tclass=icmp_socket permissive=0
+---
+
+Solution:
 1. Generate new policies according to audit.log:
 ~~~
 sudo  ausearch -c 'ping' --raw | audit2allow -M my-ping
