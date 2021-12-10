@@ -3,6 +3,13 @@
 ~~~
 sudo  ausearch -c 'ping' --raw | audit2allow -M my-ping
 ~~~
+Or:
+~~~
+grep ping /var/log/audit/audit.log | audit2allow -M my-ping
+checkmodule -M -m -o my-ping.mod my-ping.te
+semodule_package -o my-ping.pp -m my-ping.mod
+semodule -i my-ping.pp
+~~~
 
 2. Check policies in my-ping.te:
 ~~~
